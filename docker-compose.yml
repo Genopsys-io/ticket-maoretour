@@ -25,9 +25,15 @@ services:
     env_file:
       - ./.env
   php:
-    image: eu.gcr.io/www-genopsys/php-7.4
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: php
     volumes:
       - ./:/var/www
+    environment:
+      - FONTCONFIG_CACHE=/var/cache/fontconfig
+      - XDG_CACHE_HOME=/var/cache
     expose:
       - "9000"
   worker:
